@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: mscartoes
+
+# Quando se coloca a porta 0, ele coloca numa porta aleatória.
+# Devemos fazer isso, pois se subimos várias aplicações, iriam ficar na mesma porta.
+server:
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+# instance-id deve ser o nome mais um valor aleatória, para não ficarem todas as instâncias com o mesmo nome.
