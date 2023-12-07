@@ -1,6 +1,6 @@
 spring:
   application:
-    name: mscartoes
+    name: msavaliadorcredito
 
 # Quando se coloca a porta 0, ele coloca numa porta aleatoria.
 # Devemos fazer isso, pois se subimos varias aplicacoes, iriam ficar na mesma porta.
