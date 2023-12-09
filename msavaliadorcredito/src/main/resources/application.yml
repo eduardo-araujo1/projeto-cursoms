@@ -1,6 +1,12 @@
 spring:
   application:
     name: msavaliadorcredito
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 
 # Quando se coloca a porta 0, ele coloca numa porta aleatoria.
 # Devemos fazer isso, pois se subimos varias aplicacoes, iriam ficar na mesma porta.
@@ -14,3 +20,7 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 # instance-id deve ser o nome mais um valor aleatoria, para nao ficarem todas as instancias com o mesmo nome.
+
+mq:
+  queues:
+    emissao-cartoes: emissao-cartoes
