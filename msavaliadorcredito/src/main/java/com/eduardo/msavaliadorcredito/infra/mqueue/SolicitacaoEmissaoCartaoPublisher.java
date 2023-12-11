@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 public class SolicitacaoEmissaoCartaoPublisher {
 
     private final RabbitTemplate rabbitTemplate;
-
     private final Queue queueEmissaoCartoes;
 
     public void solicitarCartao(DadosSolicitacaoEmissaoCartao dados) throws JsonProcessingException {
