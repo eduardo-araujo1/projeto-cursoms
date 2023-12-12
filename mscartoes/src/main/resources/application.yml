@@ -23,3 +23,15 @@ eureka:
 mq:
   queues:
     emissao-cartoes: emissao-cartoes
+
+#Configuração para o Actuator, expor todos endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*'
+
+logging:
+  file:
+    name: ./logs/log-file.log
