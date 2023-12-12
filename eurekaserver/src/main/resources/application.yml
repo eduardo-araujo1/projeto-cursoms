@@ -1,6 +1,13 @@
 spring:
   application:
     name: eurekaserver
+  security:
+    basic:
+      enabled: true
+    user:
+      name: cursoms-eureka-user
+      password: admin
+      # o ideal é usar uma senha forte
 
 server:
   port: 8761
