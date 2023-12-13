@@ -26,7 +26,7 @@ public class AvaliadorCreditoService {
     private final CartoesResourceClient cartoesClient;
     private final SolicitacaoEmissaoCartaoPublisher emissaoCartaoPublisher;
 
-    public SituacaoCliente obterSituacaoCliente(String cpf) throws DadosClienteNotFoundException, ErroComunicacaoMicroservicesException{
+    public SituacaoCliente obterSituacaoCliente(String cpf) throws DadosClienteNotFoundException, ErroComunicacaoMicroservicesException {
         //obterDadosCliente -MSCLIENTES
         //obter cartoes do cliente -MSCARTOES
         try {
@@ -38,16 +38,16 @@ public class AvaliadorCreditoService {
                     .cartoes(cartoesResponse.getBody())
                     .build();
 
-        }catch (FeignException.FeignClientException e){
+        } catch (FeignException.FeignClientException e) {
             int status = e.status();
-            if (HttpStatus.NOT_FOUND.value() == status){
+            if (HttpStatus.NOT_FOUND.value() == status) {
                 throw new DadosClienteNotFoundException();
             }
-            throw new ErroComunicacaoMicroservicesException(e.getMessage(),status);
+            throw new ErroComunicacaoMicroservicesException(e.getMessage(), status);
         }
     }
 
-    public RetornoAvaliacaoCliente realizarAvaliacao(String cpf, Long renda)throws DadosClienteNotFoundException, ErroComunicacaoMicroservicesException{
+    public RetornoAvaliacaoCliente realizarAvaliacao(String cpf, Long renda) throws DadosClienteNotFoundException, ErroComunicacaoMicroservicesException {
         try {
             ResponseEntity<DadosCliente> dadosClienteResponse = clientesClient.dadosCliente(cpf);
             ResponseEntity<List<Cartao>> cartoesResponse = cartoesClient.getCartoesRendaAte(renda);
@@ -72,21 +72,21 @@ public class AvaliadorCreditoService {
 
             return new RetornoAvaliacaoCliente(listaCartoesAprovados);
 
-        }catch (FeignException.FeignClientException e){
+        } catch (FeignException.FeignClientException e) {
             int status = e.status();
-            if (HttpStatus.NOT_FOUND.value() == status){
+            if (HttpStatus.NOT_FOUND.value() == status) {
                 throw new DadosClienteNotFoundException();
             }
-            throw new ErroComunicacaoMicroservicesException(e.getMessage(),status);
+            throw new ErroComunicacaoMicroservicesException(e.getMessage(), status);
         }
     }
 
-    public ProtocoloSolicitacaoCartao solicitarEmissaoCartao(DadosSolicitacaoEmissaoCartao dados){
-        try{
+    public ProtocoloSolicitacaoCartao solicitarEmissaoCartao(DadosSolicitacaoEmissaoCartao dados) {
+        try {
             emissaoCartaoPublisher.solicitarCartao(dados);
             var protocolo = UUID.randomUUID().toString();
             return new ProtocoloSolicitacaoCartao(protocolo);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ErroSolicitacaoCartaoException(e.getMessage());
         }
     }
